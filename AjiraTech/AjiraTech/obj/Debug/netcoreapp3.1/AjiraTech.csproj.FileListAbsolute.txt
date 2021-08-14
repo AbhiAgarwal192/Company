@@ -1,0 +1,13 @@
+C:\Users\abhi_agarwal\source\repos\Ajirasoft\Ajirasoft\bin\Debug\netcoreapp3.1\AjiraTech.exe
+C:\Users\abhi_agarwal\source\repos\Ajirasoft\Ajirasoft\bin\Debug\netcoreapp3.1\AjiraTech.deps.json
+C:\Users\abhi_agarwal\source\repos\Ajirasoft\Ajirasoft\bin\Debug\netcoreapp3.1\AjiraTech.runtimeconfig.json
+C:\Users\abhi_agarwal\source\repos\Ajirasoft\Ajirasoft\bin\Debug\netcoreapp3.1\AjiraTech.runtimeconfig.dev.json
+C:\Users\abhi_agarwal\source\repos\Ajirasoft\Ajirasoft\bin\Debug\netcoreapp3.1\AjiraTech.dll
+C:\Users\abhi_agarwal\source\repos\Ajirasoft\Ajirasoft\bin\Debug\netcoreapp3.1\AjiraTech.pdb
+C:\Users\abhi_agarwal\source\repos\Ajirasoft\Ajirasoft\obj\Debug\netcoreapp3.1\AjiraTech.csprojAssemblyReference.cache
+C:\Users\abhi_agarwal\source\repos\Ajirasoft\Ajirasoft\obj\Debug\netcoreapp3.1\AjiraTech.AssemblyInfoInputs.cache
+C:\Users\abhi_agarwal\source\repos\Ajirasoft\Ajirasoft\obj\Debug\netcoreapp3.1\AjiraTech.AssemblyInfo.cs
+C:\Users\abhi_agarwal\source\repos\Ajirasoft\Ajirasoft\obj\Debug\netcoreapp3.1\AjiraTech.csproj.CoreCompileInputs.cache
+C:\Users\abhi_agarwal\source\repos\Ajirasoft\Ajirasoft\obj\Debug\netcoreapp3.1\AjiraTech.dll
+C:\Users\abhi_agarwal\source\repos\Ajirasoft\Ajirasoft\obj\Debug\netcoreapp3.1\AjiraTech.pdb
+C:\Users\abhi_agarwal\source\repos\Ajirasoft\Ajirasoft\obj\Debug\netcoreapp3.1\AjiraTech.genruntimeconfig.cache
