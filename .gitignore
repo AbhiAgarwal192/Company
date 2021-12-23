@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Ivanti/.vs/Ivanti/v16
+/Ivanti/Ivanti/bin/Debug/netcoreapp3.1
+/Ivanti/Ivanti/obj
+/Ivanti/Ivanti/Ivanti.csproj.user
+/Ivanti/UnitTests/obj
