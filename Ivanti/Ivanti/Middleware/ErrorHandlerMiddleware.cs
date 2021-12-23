@@ -25,7 +25,7 @@ namespace Ivanti.Middleware
             catch (Exception ex)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                _logger.LogError($"Exception occurred. Message: {ex.Message} Stacktrace : {ex.StackTrace}");
+                _logger.LogError($"ErrorHandlerMiddleware :: Exception occurred. Message: {ex.Message} Stacktrace : {ex.StackTrace}");
             }
         }
     }

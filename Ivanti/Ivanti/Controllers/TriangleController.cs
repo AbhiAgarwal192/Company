@@ -3,6 +3,7 @@ using Ivanti.Manager.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Net;
 
 namespace Ivanti.Controllers
 {
@@ -18,9 +19,23 @@ namespace Ivanti.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Get Triangle Coordinates From Triangle Name
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET api/triangle/A1/coordinates
+        ///
+        /// </remarks>
+        /// <param name="triangleNumber"></param>
+        /// <returns></returns>
         [HttpGet("{triangleNumber}/coordinates")]
         [Produces("application/json")]
-        public IActionResult GetTriangleCoordinates(string triangleNumber )
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<int[]>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(string))]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public IActionResult GetTriangleCoordinates(string triangleNumber)
         {
             if (string.IsNullOrEmpty(triangleNumber))
             {
@@ -31,8 +46,22 @@ namespace Ivanti.Controllers
             return new OkObjectResult(coordinates);
         }
 
+        /// <summary>
+        /// Get Triangle Name From Coordinates
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET api/triangle/name?coordinates=[{50,50},{60,50},{60,60}]
+        ///
+        /// </remarks>
+        /// <param name="coordinates"></param>
+        /// <returns></returns>
         [HttpGet("name")]
-        public IActionResult GetTriangleName([ModelBinder(BinderType = typeof(StringToListBinder))] List<int[]> coordinates)
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(string))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest,Type = typeof(string))]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public IActionResult GetTriangleName([ModelBinder(BinderType = typeof(StringToListBinder))] [FromQuery] List<int[]> coordinates)
         {
             if (coordinates.Count == 0 || coordinates.Count!=3)
             {
@@ -40,6 +69,7 @@ namespace Ivanti.Controllers
                 return BadRequest("Please provide valid set of coordinates.");
             }
             string triangleName = _triangleManager.GetTriangle(coordinates);
+
             return Ok(triangleName);
         }
     }

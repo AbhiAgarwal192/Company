@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ivanti", "Ivanti\Ivanti.csproj", "{6178B237-C3F8-4ED8-9F51-2B6645C962F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{93F22F71-1423-4AD1-A126-5D856A1B4B2C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{B07A581B-E025-4B15-95AE-B75F95F57EFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{6178B237-C3F8-4ED8-9F51-2B6645C962F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6178B237-C3F8-4ED8-9F51-2B6645C962F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6178B237-C3F8-4ED8-9F51-2B6645C962F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{93F22F71-1423-4AD1-A126-5D856A1B4B2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93F22F71-1423-4AD1-A126-5D856A1B4B2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93F22F71-1423-4AD1-A126-5D856A1B4B2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93F22F71-1423-4AD1-A126-5D856A1B4B2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B07A581B-E025-4B15-95AE-B75F95F57EFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B07A581B-E025-4B15-95AE-B75F95F57EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B07A581B-E025-4B15-95AE-B75F95F57EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B07A581B-E025-4B15-95AE-B75F95F57EFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

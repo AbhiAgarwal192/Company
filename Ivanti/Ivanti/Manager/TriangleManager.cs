@@ -78,7 +78,7 @@ namespace Ivanti.Manager
         {
             string triangle = string.Empty;
 
-            if (coordinates.Count != 3)
+            if (coordinates.Count < 3)
             {
                 return triangle;
             }

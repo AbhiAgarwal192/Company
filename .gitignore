@@ -7,3 +7,5 @@
 /Ivanti/Ivanti/obj
 /Ivanti/Ivanti/Ivanti.csproj.user
 /Ivanti/UnitTests/obj
+/Ivanti/UnitTests/bin/Debug/netcoreapp3.1
+/Ivanti/.vs/Ivanti/DesignTimeBuild
