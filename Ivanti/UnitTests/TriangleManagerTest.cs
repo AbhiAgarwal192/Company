@@ -1,10 +1,7 @@
 ﻿using Ivanti.Manager;
 using Ivanti.Manager.Contracts;
 using Microsoft.Extensions.Configuration;
-using Moq;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace UnitTests
