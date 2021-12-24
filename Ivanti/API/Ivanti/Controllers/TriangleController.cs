@@ -68,9 +68,14 @@ namespace Ivanti.Controllers
                 _logger.LogInformation(" TriangleController :: GetTriangleName :: Please provide valid set of coordinates.");
                 return BadRequest("Please provide valid set of coordinates.");
             }
-            string triangleName = _triangleManager.GetTriangle(coordinates);
 
-            return Ok(triangleName);
+            var triangleResponse = _triangleManager.GetTriangle(coordinates);
+            if (!triangleResponse.IsValid)
+            {
+                return BadRequest(triangleResponse.Message);
+            }
+
+            return Ok(triangleResponse.Message);
         }
     }
 }

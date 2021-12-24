@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ivanti</name>
+    </assembly>
+    <members>
+        <member name="M:Ivanti.Controllers.TriangleController.GetTriangleCoordinates(System.String)">
+             <summary>
+             Get Triangle Coordinates From Triangle Name
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 GET api/triangle/A1/coordinates
+            
+             </remarks>
+             <param name="triangleNumber"></param>
+             <returns></returns>
+        </member>
+        <member name="M:Ivanti.Controllers.TriangleController.GetTriangleName(System.Collections.Generic.List{System.Int32[]})">
+             <summary>
+             Get Triangle Name From Coordinates
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 GET api/triangle/name?coordinates=[{50,50},{60,50},{60,60}]
+            
+             </remarks>
+             <param name="coordinates"></param>
+             <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,4 +1,5 @@
-﻿using Ivanti.Manager;
+﻿using Ivanti.Constants;
+using Ivanti.Manager;
 using Ivanti.Manager.Contracts;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
@@ -56,8 +57,8 @@ namespace UnitTests
 
             var result = _triangleManager.GetTriangle(list);
 
-            Assert.NotEmpty(result);
-            Assert.Equal("A1", result);
+            Assert.True(result.IsValid);
+            Assert.Equal("A1", result.Message);
         }
 
         [Fact]
@@ -65,7 +66,8 @@ namespace UnitTests
         {
             var result = _triangleManager.GetTriangle(new List<int[]>());
 
-            Assert.Empty(result);
+            Assert.False(result.IsValid);
+            Assert.Equal(Messages.CheckCoordinatesMessage, result.Message);
         }
     }
 }

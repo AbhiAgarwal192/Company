@@ -1,4 +1,5 @@
 ﻿using Ivanti.Constants;
+using Ivanti.Entities;
 using Ivanti.Manager.Contracts;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -74,13 +75,17 @@ namespace Ivanti.Manager
 
             return result;
         }
-        public string GetTriangle(List<int[]> coordinates)
+        public TriangleResponse GetTriangle(List<int[]> coordinates)
         {
+            var response = new TriangleResponse();
+
             string triangle = string.Empty;
 
             if (coordinates.Count < 3)
             {
-                return triangle;
+                response.IsValid = false;
+                response.Message = Messages.CheckCoordinatesMessage;
+                return response;
             }
 
             int maxX = 0;
@@ -109,6 +114,12 @@ namespace Ivanti.Manager
 
             int col = minX / _triangleSideLength;
 
+            if (minX == maxX || freq[minX]>2 || freq[maxX]>2)
+            {
+                response.IsValid = false;
+                response.Message = Messages.CheckCoordinatesMessage;
+                return response;
+            }
             if (freq[minX] == 2)
             {
                 triangle = $"{row}{col * 2 + 1}";
@@ -118,7 +129,9 @@ namespace Ivanti.Manager
                 triangle = $"{row}{col * 2 + 2}";
             }
 
-            return triangle;
+            response.IsValid = true;
+            response.Message = triangle;
+            return response;
         }
     }
 }

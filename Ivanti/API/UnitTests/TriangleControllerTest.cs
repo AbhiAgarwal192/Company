@@ -1,12 +1,12 @@
-﻿using Ivanti.Controllers;
+﻿using Ivanti.Constants;
+using Ivanti.Controllers;
+using Ivanti.Entities;
 using Ivanti.Manager.Contracts;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
-using Microsoft.AspNetCore.Mvc;
 
 namespace UnitTests
 {
@@ -73,7 +73,7 @@ namespace UnitTests
         [Fact]
         public void WhenLessThan3TriangleCoordinatesIsGiven_ThenBadRequestIsReturned()
         {
-            _triangleManagerMock.Setup(_call => _call.GetTriangle(It.IsAny<List<int[]>>())).Returns(string.Empty);
+            _triangleManagerMock.Setup(_call => _call.GetTriangle(It.IsAny<List<int[]>>())).Returns(new TriangleResponse());
 
             var list = new List<int[]>();
             list.Add(new int[] { 0 , 0 });
@@ -83,9 +83,36 @@ namespace UnitTests
         }
 
         [Fact]
+        public void WhenInvalidTriangleCoordinatesIsGiven_ThenBadRequestIsReturnedWithMessage()
+        {
+            var response = new TriangleResponse
+            {
+                IsValid = false,
+                Message = Messages.CheckCoordinatesMessage
+            };
+
+            _triangleManagerMock.Setup(_call => _call.GetTriangle(It.IsAny<List<int[]>>())).Returns(response);
+
+            var list = new List<int[]>();
+            list.Add(new int[] { 0, 0 });
+            list.Add(new int[] { 0, 0 });
+            list.Add(new int[] { 0, 0 });
+
+            var result = _triangleController.GetTriangleName(list);
+
+            Assert.IsType<BadRequestObjectResult>(result);
+            var output = result as BadRequestObjectResult;
+            Assert.Equal(Messages.CheckCoordinatesMessage, output.Value);
+        }
+
+        [Fact]
         public void WhenValidTriangleCoordinatesIsGiven_Then200IsReturnedWithTriangleName()
         {
-            _triangleManagerMock.Setup(_call => _call.GetTriangle(It.IsAny<List<int[]>>())).Returns("A1");
+            var response = new TriangleResponse {
+                IsValid = true,
+                Message = "A1"
+            };
+            _triangleManagerMock.Setup(_call => _call.GetTriangle(It.IsAny<List<int[]>>())).Returns(response);
 
             var list = new List<int[]>();
             list.Add(new int[] { 0, 0 });
