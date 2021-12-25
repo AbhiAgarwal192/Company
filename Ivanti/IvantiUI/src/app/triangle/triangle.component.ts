@@ -32,6 +32,9 @@ export class TriangleComponent implements OnInit {
         if(data.length == 3){
           this.coordinates = `[{${data[0][0]},${data[0][1]}},{${data[1][0]},${data[1][1]}},{${data[2][0]},${data[2][1]}}]`;
         }
+      },
+      error => {
+        this.coordinates = error.error;
       });
     }    
   }
@@ -40,8 +43,10 @@ export class TriangleComponent implements OnInit {
     if(this.x1>=0 && this.y1>=0 && this.x2>=0 && this.y2>=0 && this.x3>=0 && this.y3>=0){
       let coordinates = `[{${this.x1},${this.y1}},{${this.x2},${this.y2}},{${this.x3},${this.y3}}]`;
       this.triangleapiservice.getTriangleName(coordinates).subscribe( data => {
-        console.log(data);
         this.outputTriangleName = data;
+      },
+      error => {
+        this.outputTriangleName = error.error;
       });
     }    
   }
