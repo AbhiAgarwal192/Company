@@ -36,6 +36,9 @@ export class TriangleComponent implements OnInit {
       error => {
         this.coordinates = error.error;
       });
+    }
+    else{
+      this.coordinates = " Please provide triangle name."
     }    
   }
 
