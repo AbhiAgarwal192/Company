@@ -38,9 +38,9 @@ namespace UnitTests
 
             var result = _triangleController.GetTriangleCoordinates("A100");
 
-            Assert.IsType<OkObjectResult>(result);
-            var output = (result as OkObjectResult)?.Value as List<int[]>;
-            Assert.Empty(output);
+            Assert.IsType<BadRequestObjectResult>(result);
+            var output = result as BadRequestObjectResult;
+            Assert.Equal(Messages.TriangleNameIsNotValid,output.Value);
         }
 
         [Fact]
@@ -88,7 +88,7 @@ namespace UnitTests
             var response = new TriangleResponse
             {
                 IsValid = false,
-                Message = Messages.CheckCoordinatesMessage
+                Value = Messages.CheckCoordinatesMessage
             };
 
             _triangleManagerMock.Setup(_call => _call.GetTriangle(It.IsAny<List<int[]>>())).Returns(response);
@@ -110,7 +110,7 @@ namespace UnitTests
         {
             var response = new TriangleResponse {
                 IsValid = true,
-                Message = "A1"
+                Value = "A1"
             };
             _triangleManagerMock.Setup(_call => _call.GetTriangle(It.IsAny<List<int[]>>())).Returns(response);
 

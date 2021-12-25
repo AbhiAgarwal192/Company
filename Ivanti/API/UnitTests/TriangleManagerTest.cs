@@ -58,7 +58,7 @@ namespace UnitTests
             var result = _triangleManager.GetTriangle(list);
 
             Assert.True(result.IsValid);
-            Assert.Equal("A1", result.Message);
+            Assert.Equal("A1", result.Value);
         }
 
         [Fact]
@@ -67,7 +67,7 @@ namespace UnitTests
             var result = _triangleManager.GetTriangle(new List<int[]>());
 
             Assert.False(result.IsValid);
-            Assert.Equal(Messages.CheckCoordinatesMessage, result.Message);
+            Assert.Equal(Messages.CheckCoordinatesMessage, result.Value);
         }
     }
 }

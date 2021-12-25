@@ -1,4 +1,5 @@
 ﻿using Ivanti.Binders;
+using Ivanti.Constants;
 using Ivanti.Manager.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -28,22 +29,28 @@ namespace Ivanti.Controllers
         ///     GET api/triangle/A1/coordinates
         ///
         /// </remarks>
-        /// <param name="triangleNumber"></param>
+        /// <param name="triangleName"></param>
         /// <returns></returns>
-        [HttpGet("{triangleNumber}/coordinates")]
+        [HttpGet("{triangleName}/coordinates")]
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<int[]>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(string))]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public IActionResult GetTriangleCoordinates(string triangleNumber)
+        public IActionResult GetTriangleCoordinates(string triangleName)
         {
-            if (string.IsNullOrEmpty(triangleNumber))
+            if (string.IsNullOrEmpty(triangleName))
             {
-                _logger.LogInformation($" TriangleController :: GetTriangleCoordinates :: Triangle Name cannot be null or empty. Input : {triangleNumber}");
-                return BadRequest("Triangle Name cannot be null or empty.");
+                _logger.LogInformation($" TriangleController :: GetTriangleCoordinates :: Triangle Name cannot be null or empty. Input : {triangleName}");
+                return BadRequest(Messages.TriangleNameNullOrEmpty);
             }
-            var coordinates = _triangleManager.GetCoordinates(triangleNumber.Trim());
-            return new OkObjectResult(coordinates);
+            var coordinates = _triangleManager.GetCoordinates(triangleName.Trim());
+            if (coordinates.Count == 3)
+            {
+                return new OkObjectResult(coordinates);
+            }
+
+            return BadRequest(Messages.TriangleNameIsNotValid);
+
         }
 
         /// <summary>
@@ -66,16 +73,16 @@ namespace Ivanti.Controllers
             if (coordinates.Count == 0 || coordinates.Count!=3)
             {
                 _logger.LogInformation(" TriangleController :: GetTriangleName :: Please provide valid set of coordinates.");
-                return BadRequest("Please provide valid set of coordinates.");
+                return BadRequest(Messages.ProvideValidSetOfCoordinates);
             }
 
             var triangleResponse = _triangleManager.GetTriangle(coordinates);
             if (!triangleResponse.IsValid)
             {
-                return BadRequest(triangleResponse.Message);
+                return BadRequest(triangleResponse.Value);
             }
 
-            return Ok(triangleResponse.Message);
+            return Ok(triangleResponse.Value);
         }
     }
 }

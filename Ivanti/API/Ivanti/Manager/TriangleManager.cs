@@ -1,6 +1,7 @@
 ﻿using Ivanti.Constants;
 using Ivanti.Entities;
 using Ivanti.Manager.Contracts;
+using Ivanti.Utility;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,10 @@ namespace Ivanti.Manager
         public TriangleManager(IConfiguration configuration)
         {
             _triangleSideLength = configuration.GetValue<int>(Configuration.LengthOfTriangleSide);
+            if (_triangleSideLength == 0)
+            {
+                throw new ArgumentException("Length of triangle side must be greater than 0");
+            }
         }
         private bool IsLowerTriangle(int triangleNumber)
         {
@@ -21,6 +26,23 @@ namespace Ivanti.Manager
                 return false;
             }
 
+            return true;
+        }
+        private bool IsValidRowNumber(char row)
+        {
+            if (row < 'A' || row > 'F')
+            {
+                return false;
+            }
+
+            return true;
+        }
+        private bool IsValidTriangleNumber(int triangleNumber)
+        {
+            if (triangleNumber <= 0 || triangleNumber > 12)
+            {
+                return false;
+            }
             return true;
         }
         public List<int[]> GetCoordinates(string input)
@@ -32,17 +54,10 @@ namespace Ivanti.Manager
             }
 
             char row = input[0];
-
-            if (row < 'A' || row > 'F')
-            {
-                return result;
-            }
-
             string block = input.Substring(1);
-
             int triangleNumber = Convert.ToInt32(block);
 
-            if (triangleNumber <= 0 || triangleNumber > 12)
+            if (!IsValidRowNumber(row) || !IsValidTriangleNumber(triangleNumber))
             {
                 return result;
             }
@@ -64,36 +79,35 @@ namespace Ivanti.Manager
 
             if (IsLowerTriangle(triangleNumber))
             {
-                int[] coordinate3 = { c1, r2 };
-                result.Add(coordinate3);
+                result.Add(new int[] { c1, r2 });
             }
             else
             {
-                int[] coordinate3 = { c2, r1 };
-                result.Add(coordinate3);
+                result.Add(new int[] { c2, r1 });
             }
 
             return result;
         }
         public TriangleResponse GetTriangle(List<int[]> coordinates)
         {
-            var response = new TriangleResponse();
+            var response = new TriangleResponse { 
+                IsValid = false,
+                Value = Messages.CheckCoordinatesMessage
+            };
 
-            string triangle = string.Empty;
-
-            if (coordinates.Count < 3)
+            if (coordinates.Count < 3 || !TriangleUtility.IsValidRighAngledTriangle(coordinates))
             {
-                response.IsValid = false;
-                response.Message = Messages.CheckCoordinatesMessage;
                 return response;
             }
+
+            string triangle = string.Empty;
 
             int maxX = 0;
             int maxY = 0;
             int minX = Int32.MaxValue;
             int minY = Int32.MaxValue;
 
-            var freq = new Dictionary<int, int>();
+            var frequency = new Dictionary<int, int>();
 
             for (int i = 0; i < 3; i++)
             {
@@ -103,34 +117,40 @@ namespace Ivanti.Manager
                 minX = Math.Min(minX, coordinates[i][0]);
                 minY = Math.Min(minY, coordinates[i][1]);
 
-                if (!freq.ContainsKey(coordinates[i][0]))
+                if (!frequency.ContainsKey(coordinates[i][0]))
                 {
-                    freq.Add(coordinates[i][0], 0);
+                    frequency.Add(coordinates[i][0], 0);
                 }
-                freq[coordinates[i][0]] = freq[coordinates[i][0]] + 1;
+                frequency[coordinates[i][0]] = frequency[coordinates[i][0]] + 1;
             }
 
             char row = Convert.ToChar('A' + minY / _triangleSideLength);
 
-            int col = minX / _triangleSideLength;
-
-            if (minX == maxX || freq[minX]>2 || freq[maxX]>2)
+            if (!IsValidRowNumber(row))
             {
-                response.IsValid = false;
-                response.Message = Messages.CheckCoordinatesMessage;
                 return response;
             }
-            if (freq[minX] == 2)
+
+            int col = minX / _triangleSideLength;
+            int triangleNum = 0;
+
+            // If two points having same minimum value of x coordinate then the triangle points upwards else downwards.
+            if (frequency[minX] == 2)
             {
-                triangle = $"{row}{col * 2 + 1}";
+                triangleNum = col * 2 + 1;
             }
             else
             {
-                triangle = $"{row}{col * 2 + 2}";
+                triangleNum = col * 2 + 2;
+            }
+
+            if (!IsValidTriangleNumber(triangleNum))
+            {
+                return response;
             }
 
             response.IsValid = true;
-            response.Message = triangle;
+            response.Value = $"{row}{triangleNum}";
             return response;
         }
     }

@@ -6,6 +6,6 @@ namespace Ivanti.Entities
     public class TriangleResponse
     {
         public bool IsValid { get; set; }
-        public string Message { get; set; }
+        public string Value { get; set; }
     }
 }

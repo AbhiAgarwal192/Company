@@ -14,7 +14,7 @@
                  GET api/triangle/A1/coordinates
             
              </remarks>
-             <param name="triangleNumber"></param>
+             <param name="triangleName"></param>
              <returns></returns>
         </member>
         <member name="M:Ivanti.Controllers.TriangleController.GetTriangleName(System.Collections.Generic.List{System.Int32[]})">
@@ -29,6 +29,13 @@
              </remarks>
              <param name="coordinates"></param>
              <returns></returns>
+        </member>
+        <member name="M:Ivanti.Utility.TriangleUtility.IsValidRighAngledTriangle(System.Collections.Generic.List{System.Int32[]})">
+            <summary>
+            Check if the coordinates form a valid right angled triangle using pythagoras theorem.
+            </summary>
+            <param name="coordinates">List of coordinates</param>
+            <returns>bool</returns>
         </member>
     </members>
 </doc>
