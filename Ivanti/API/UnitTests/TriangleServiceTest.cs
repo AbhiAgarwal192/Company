@@ -7,10 +7,10 @@ using Xunit;
 
 namespace UnitTests
 {
-    public class TriangleManagerTest
+    public class TriangleServiceTest
     {
-        private readonly ITriangleManager _triangleManager;
-        public TriangleManagerTest()
+        private readonly ITriangleService _triangleService;
+        public TriangleServiceTest()
         {
             var inMemorySettings = new Dictionary<string, string> {
                 {"LengthOfTriangleSide", "10"},
@@ -19,13 +19,13 @@ namespace UnitTests
                 .AddInMemoryCollection(inMemorySettings)
                 .Build();
 
-            _triangleManager = new TriangleManager(configuration);
+            _triangleService = new TriangleService(configuration);
         }
 
         [Fact]
         public void WhenValidTriangleNameIsGiven_ThenCoordinatesIsReturned()
         {
-            var result = _triangleManager.GetCoordinates("A1");
+            var result = _triangleService.GetCoordinates("A1");
 
             Assert.NotEmpty(result);
             Assert.Equal(3,result.Count);
@@ -34,7 +34,7 @@ namespace UnitTests
         [Fact]
         public void WhenNullOrEmptyTriangleNameIsGiven_ThenEmptyListIsReturned()
         {
-            var result = _triangleManager.GetCoordinates(string.Empty);
+            var result = _triangleService.GetCoordinates(string.Empty);
 
             Assert.Empty(result);
         }
@@ -42,7 +42,7 @@ namespace UnitTests
         [Fact]
         public void WhenInvalidTriangleNameIsGiven_ThenEmptyListIsReturned()
         {
-            var result = _triangleManager.GetCoordinates("a1");
+            var result = _triangleService.GetCoordinates("a1");
 
             Assert.Empty(result);
         }
@@ -55,7 +55,7 @@ namespace UnitTests
             list.Add(new int[] { 0, 10 });
             list.Add(new int[] { 10, 10 });
 
-            var result = _triangleManager.GetTriangle(list);
+            var result = _triangleService.GetTriangle(list);
 
             Assert.True(result.IsValid);
             Assert.Equal("A1", result.Value);
@@ -64,7 +64,7 @@ namespace UnitTests
         [Fact]
         public void WhenEmptyListIsGiven_ThenEmptyNameIsReturned()
         {
-            var result = _triangleManager.GetTriangle(new List<int[]>());
+            var result = _triangleService.GetTriangle(new List<int[]>());
 
             Assert.False(result.IsValid);
             Assert.Equal(Messages.CheckCoordinatesMessage, result.Value);

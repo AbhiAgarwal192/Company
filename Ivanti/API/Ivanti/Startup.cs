@@ -26,7 +26,7 @@ namespace Ivanti
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<ITriangleManager, TriangleManager>();
+            services.AddSingleton<ITriangleService, TriangleService>();
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo

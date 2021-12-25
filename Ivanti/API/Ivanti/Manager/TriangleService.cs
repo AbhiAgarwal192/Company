@@ -8,10 +8,10 @@ using System.Collections.Generic;
 
 namespace Ivanti.Manager
 {
-    public class TriangleManager : ITriangleManager
+    public class TriangleService : ITriangleService
     {
         private readonly int _triangleSideLength;
-        public TriangleManager(IConfiguration configuration)
+        public TriangleService(IConfiguration configuration)
         {
             _triangleSideLength = configuration.GetValue<int>(Configuration.LengthOfTriangleSide);
             if (_triangleSideLength == 0)
@@ -71,11 +71,8 @@ namespace Ivanti.Manager
             int c1 = colNumber * _triangleSideLength;
             int c2 = colNumber * _triangleSideLength + _triangleSideLength;
 
-            int[] coordinate1 = { c1, r1 };
-            int[] coordinate2 = { c2, r2 };
-
-            result.Add(coordinate1);
-            result.Add(coordinate2);
+            result.Add(new int[] { c1, r1 });
+            result.Add(new int[] { c2, r2 });
 
             if (IsLowerTriangle(triangleNumber))
             {

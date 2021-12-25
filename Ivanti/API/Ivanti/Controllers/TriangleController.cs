@@ -12,11 +12,11 @@ namespace Ivanti.Controllers
     [ApiController]
     public class TriangleController : ControllerBase
     {
-        private readonly ITriangleManager _triangleManager;
+        private readonly ITriangleService _triangleService;
         private readonly ILogger<TriangleController> _logger;
-        public TriangleController(ITriangleManager triangleManager, ILogger<TriangleController> logger)
+        public TriangleController(ITriangleService triangleService, ILogger<TriangleController> logger)
         {
-            _triangleManager = triangleManager;
+            _triangleService = triangleService;
             _logger = logger;
         }
 
@@ -43,7 +43,7 @@ namespace Ivanti.Controllers
                 _logger.LogInformation($" TriangleController :: GetTriangleCoordinates :: Triangle Name cannot be null or empty. Input : {triangleName}");
                 return BadRequest(Messages.TriangleNameNullOrEmpty);
             }
-            var coordinates = _triangleManager.GetCoordinates(triangleName.Trim());
+            var coordinates = _triangleService.GetCoordinates(triangleName.Trim());
             if (coordinates.Count == 3)
             {
                 return new OkObjectResult(coordinates);
@@ -76,7 +76,7 @@ namespace Ivanti.Controllers
                 return BadRequest(Messages.ProvideValidSetOfCoordinates);
             }
 
-            var triangleResponse = _triangleManager.GetTriangle(coordinates);
+            var triangleResponse = _triangleService.GetTriangle(coordinates);
             if (!triangleResponse.IsValid)
             {
                 return BadRequest(triangleResponse.Value);

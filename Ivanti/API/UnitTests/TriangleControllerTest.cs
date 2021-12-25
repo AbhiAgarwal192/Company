@@ -13,13 +13,13 @@ namespace UnitTests
     public class TriangleControllerTest
     {
         private readonly TriangleController _triangleController;
-        private readonly Mock<ITriangleManager> _triangleManagerMock;
+        private readonly Mock<ITriangleService> _triangleServiceMock;
         
         public TriangleControllerTest()
         {
             var loggerMock = new Mock<ILogger<TriangleController>>();
-            _triangleManagerMock = new Mock<ITriangleManager>();
-            _triangleController = new TriangleController(_triangleManagerMock.Object,loggerMock.Object);
+            _triangleServiceMock = new Mock<ITriangleService>();
+            _triangleController = new TriangleController(_triangleServiceMock.Object,loggerMock.Object);
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace UnitTests
         public void WhenInValidTriangleNameIsGiven_Then200StatusCodeIsReturnedWithNoResult()
         {
             var list = new List<int[]>();
-            _triangleManagerMock.Setup(_call => _call.GetCoordinates(It.IsAny<string>())).Returns(list);
+            _triangleServiceMock.Setup(_call => _call.GetCoordinates(It.IsAny<string>())).Returns(list);
 
             var result = _triangleController.GetTriangleCoordinates("A100");
 
@@ -50,7 +50,7 @@ namespace UnitTests
             list.Add(new int[] { 0 , 0 });
             list.Add(new int[] { 0 , 10 });
             list.Add(new int[] { 10 , 10 });
-            _triangleManagerMock.Setup(_call => _call.GetCoordinates(It.IsAny<string>())).Returns(list);
+            _triangleServiceMock.Setup(_call => _call.GetCoordinates(It.IsAny<string>())).Returns(list);
 
             var result = _triangleController.GetTriangleCoordinates("A1");
 
@@ -73,7 +73,7 @@ namespace UnitTests
         [Fact]
         public void WhenLessThan3TriangleCoordinatesIsGiven_ThenBadRequestIsReturned()
         {
-            _triangleManagerMock.Setup(_call => _call.GetTriangle(It.IsAny<List<int[]>>())).Returns(new TriangleResponse());
+            _triangleServiceMock.Setup(_call => _call.GetTriangle(It.IsAny<List<int[]>>())).Returns(new TriangleResponse());
 
             var list = new List<int[]>();
             list.Add(new int[] { 0 , 0 });
@@ -91,7 +91,7 @@ namespace UnitTests
                 Value = Messages.CheckCoordinatesMessage
             };
 
-            _triangleManagerMock.Setup(_call => _call.GetTriangle(It.IsAny<List<int[]>>())).Returns(response);
+            _triangleServiceMock.Setup(_call => _call.GetTriangle(It.IsAny<List<int[]>>())).Returns(response);
 
             var list = new List<int[]>();
             list.Add(new int[] { 0, 0 });
@@ -112,7 +112,7 @@ namespace UnitTests
                 IsValid = true,
                 Value = "A1"
             };
-            _triangleManagerMock.Setup(_call => _call.GetTriangle(It.IsAny<List<int[]>>())).Returns(response);
+            _triangleServiceMock.Setup(_call => _call.GetTriangle(It.IsAny<List<int[]>>())).Returns(response);
 
             var list = new List<int[]>();
             list.Add(new int[] { 0, 0 });
