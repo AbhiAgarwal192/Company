@@ -2,6 +2,7 @@
 using Ivanti.Manager;
 using Ivanti.Manager.Contracts;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -20,6 +21,21 @@ namespace UnitTests
                 .Build();
 
             _triangleService = new TriangleService(configuration);
+        }
+
+        [Fact]
+        public void WhenTriangleLengthIsZero_ThenThrowArgumentException()
+        {
+            var inMemorySettings = new Dictionary<string, string> {
+                {"LengthOfTriangleSide", "0"},
+            };
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(inMemorySettings)
+                .Build();
+
+            var triangleService = 
+
+            Assert.Throws<ArgumentException>(() => new TriangleService(configuration));
         }
 
         [Fact]
